@@ -26,9 +26,9 @@ public class MainQuijote {
         //System.out.println(mq.contadorPalabraQuijote("Quijote"));
         //System.out.println(mq.contarLetras());
         //System.out.println(mq.dividirQuijoteCapitulos().get(0));
-        //File file = new File("F:\\Program Files (x86)\\Quijote\\quijote.txt");
+        File file = new File("F:\\Program Files (x86)\\Quijote\\quijote.txt");
         //System.out.println(mq.listaPalabras(file).toString());
-        //System.out.println(mq.listarPalabrasVariosFicheros().toString());
+        System.out.println(mq.listarPalabrasVariosFicheros().toString());
     }
     
 }

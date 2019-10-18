@@ -137,16 +137,20 @@ public class MetodosQuijote {
         String linea;
         File ficheroEscritoAlReves = new File(ruta);
         aq.abrirFicherosEscritura(ficheroEscritoAlReves);
-        while ((linea = aq.leerLineaFichero()) != null) {//Uso la clase StreamBuilder para
+        while ((linea = aq.leerLineaFichero()) != null) {//Uso la clase StreamBuilder para invertir las palabras de forma simple
             StringBuilder invierteCadenas = new StringBuilder(linea);
             String cadenaInvertida = invierteCadenas.reverse().toString();
-            aq.escribirLinea(cadenaInvertida);
+            aq.escribirLinea(cadenaInvertida);//escribimos la linea invertida en el nuevo fichero
         }
         aq.cerrarFicherosLectura();
         aq.cerrarFicherosEscritura();
         return ficheroEscritoAlReves;
     }
     
+    /**
+     * Metodo que nos crea un fichero por cada capitulo y nos devuelve un arrayList con cada capitulo
+     * @return ArrayList con el archivo de cada capitulo
+     */
     public ArrayList dividirQuijoteCapitulos(){
         aq.abrirFicherosLectura(file);
         String linea;
@@ -155,8 +159,8 @@ public class MetodosQuijote {
         ArrayList listaCapitulos = new ArrayList();
         boolean capituloCreado = false;
         while ((linea = aq.leerLineaFichero()) != null) {
-            if(linea.contains("Capítulo")){
-                if(nuevoCapitulo != null){
+            if(linea.contains("Capítulo")){//Leo cada linea y miro si contiene capitulo
+                if(nuevoCapitulo != null){//Este if es para que no me salte nullPointer de la arraylist
                     listaCapitulos.add(nuevoCapitulo);
                 }
                 nuevoCapitulo = new File(file.getAbsolutePath() + "\\..\\" + capitulo + ".txt");
@@ -165,7 +169,7 @@ public class MetodosQuijote {
                 
                 aq.abrirFicherosEscritura(nuevoCapitulo);
             }
-            else if(capituloCreado){
+            else if(capituloCreado){//este if es para que no me salte nullpointer ya que empieza por lineas que no son un capitulo
                 aq.escribirLinea(linea);
             }
         }
@@ -173,11 +177,15 @@ public class MetodosQuijote {
         return listaCapitulos;
     }
     
+    /**
+     * Este metodo crea un hashmap con todas las palabras de los ficheros que estan en la misma carpeta
+     * @return un hashmap con todas las palabras
+     */
     public HashMap listarPalabrasVariosFicheros(){
         File directorioQuijote = new File(file.getAbsolutePath() + "\\..");
         File[] listaFicherosQuijote = directorioQuijote.listFiles();
         HashMap listaPalabrasDirectorios = new HashMap();
-        for (File file1 : listaFicherosQuijote) {
+        for (File file1 : listaFicherosQuijote) {//cojo cada fichero del directorio, leo las palabras y las meto en el hashmap
             listaPalabrasDirectorios.putAll(listaPalabras(file1));
         }
         return listaPalabrasDirectorios;
